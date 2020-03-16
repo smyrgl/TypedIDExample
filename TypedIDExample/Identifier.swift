@@ -8,36 +8,36 @@
 
 import Foundation
 
-struct Identifier: Hashable {
-    let string: String
-
-    var isEmpty: Bool { string.isEmpty }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(string)
-    }
+struct Identifier {
+    let rawValue: String
 }
+
+extension Identifier: RawRepresentable {
+    typealias RawValue = String
+}
+
+extension Identifier: Hashable {}
 
 extension Identifier: ExpressibleByStringLiteral {
     init(stringLiteral value: String) {
-        string = value
+        rawValue = value
     }
 }
 
 extension Identifier: CustomStringConvertible {
     var description: String {
-        string
+        rawValue
     }
 }
 
 extension Identifier: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        string = try container.decode(String.self)
+        rawValue = try container.decode(String.self)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try container.encode(string)
+        try container.encode(rawValue)
     }
 }

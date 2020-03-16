@@ -1,0 +1,4 @@
+# TypedIDExample
+This is a demonstration project that illustrates an issue where values of type `Any` cannot be coerced into a custom typed identifier even one that conforms to `RawRepresentable` with `String` as the `RawValue` type and which the `Codable` implementation treats the nested value as a single value container.  
+
+This approach works fine when using `Codable` but there is no way to make this work that I can find using init via a `[String: Any]` dictionary (which is still important both for legacy `JSONSerialization` code but also as a convenience with unit tests that are loaded from flat files for example).
